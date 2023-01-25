@@ -22,7 +22,7 @@ function solution(genres, plays) {
 
   priorities.sort((a, b) => b[1] - a[1]);
 
-  console.log(priorities);
+  //console.log(priorities);
   //console.log(genTable);
 
   //각 장르별 노래리스트 만들기
@@ -72,11 +72,11 @@ function solution(genres, plays) {
     count = 0;
   }
 
-  //console.log(result);
+  console.log(result);
   return result;
 }
 
-// solution(
-//   ["classic", "pop", "classic", "classic", "pop"],
-//   [500, 600, 500, 800, 2500]
-// );
+solution(
+  ["classic", "pop", "classic", "classic", "pop"],
+  [500, 600, 150, 800, 2500]
+);

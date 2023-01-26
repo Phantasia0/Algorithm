@@ -58,26 +58,32 @@ class MaxHeap {
 }
 
 function solution(no, works) {
-  let result = 0;
   const heap = new MaxHeap();
 
-  for (let work of works) {
-    heap.push(work);
+  for (let value of works) {
+    heap.push(value);
   }
 
-  for (let i = 0; i < no; i++) {
-    let work = heap.pop() - 1;
-    if (work < 0) return 0;
-    heap.push(work);
-  }
-  while (heap.heap.length > 1) {
+  while (no > 0) {
     let work = heap.pop();
-    if (work === 0) break;
-    result += work ** 2;
+    if (work > 0) {
+      work -= 1;
+    } else {
+      break;
+    }
+    no -= 1;
+    heap.push(work);
   }
 
-  console.log(result);
-  return result;
-}
+  //   let newCost = 0;
+  //   while (heap.heap.length > 1) {
+  //     const num = heap.pop();
+  //     if (num === 0) break;
 
-solution(13, [4, 3, 3, 6, 8, 4, 3]);
+  //     newCost += num ** 2;
+  //   }
+
+  const cost = heap.heap.reduce((a, b) => a + b * b);
+
+  return cost;
+}

@@ -58,26 +58,67 @@ class MaxHeap {
 }
 
 function solution(no, works) {
-  let result = 0;
   const heap = new MaxHeap();
+  const reduceList = [];
 
-  for (let work of works) {
-    heap.push(work);
+  if (no >= works.reduce((a, b) => a + b)) return 0;
+  if (works.length === 1) return (works[0] - no) * (works[0] - no);
+
+  const targetNum = Math.round(
+    (works.reduce((a, b) => a + b) - no) / works.length
+  );
+
+  for (let value of works) {
+    heap.push(value);
+  }
+  console.log(works.sort((a, b) => b - a));
+
+  while (true) {
+    const max = heap.pop();
+    reduceList.push(max - targetNum);
+    if (reduceList.reduce((a, b) => a + b) < no) {
+      if (reduceList.length === works.length) {
+        let done = false;
+        while (!done) {
+          for (let i = 0; i < reduceList.length; i++) {
+            reduceList[i] += 1;
+            if (reduceList.reduce((a, b) => a + b) === no) {
+              done = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if (reduceList.reduce((a, b) => a + b) === no) {
+      break;
+    }
+
+    if (reduceList.reduce((a, b) => a + b) > no) {
+      reduceList.pop();
+      reduceList.push(no - reduceList.reduce((a, b) => a + b));
+      break;
+    }
   }
 
-  for (let i = 0; i < no; i++) {
-    let work = heap.pop() - 1;
-    if (work < 0) return 0;
-    heap.push(work);
-  }
-  while (heap.heap.length > 1) {
-    let work = heap.pop();
-    if (work === 0) break;
-    result += work ** 2;
+  const sortedWork = works.sort((a, b) => b - a);
+  for (let i = 0; i < sortedWork.length; i++) {
+    if (i < reduceList.length) {
+      sortedWork[i] = sortedWork[i] - reduceList[i];
+    } else {
+      break;
+    }
   }
 
-  console.log(result);
-  return result;
+  console.log(targetNum);
+  console.log(reduceList);
+  console.log(sortedWork);
+
+  const cost = sortedWork.map((value) => value * value).reduce((a, b) => a + b);
+  console.log(cost);
+
+  return cost;
 }
 
 solution(13, [4, 3, 3, 6, 8, 4, 3]);

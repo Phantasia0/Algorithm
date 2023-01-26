@@ -1,16 +1,15 @@
 class MaxHeap {
   constructor() {
-    this.heap = [null];
+    this.heap = [null]; //0번 인덱스는 편의를 위해서 비워둔다
   }
 
-  push(data) {
-    this.heap.push(data);
+  push(value) {
+    this.heap.push(value);
     let currentIndex = this.heap.length - 1;
     let parentIndex = Math.floor(currentIndex / 2);
-
-    while (parentIndex !== 0 && this.heap[parentIndex] < data) {
+    while (parentIndex !== 0 && value > this.heap[parentIndex]) {
       const temp = this.heap[parentIndex];
-      this.heap[parentIndex] = data;
+      this.heap[parentIndex] = value;
       this.heap[currentIndex] = temp;
 
       currentIndex = parentIndex;
@@ -56,28 +55,3 @@ class MaxHeap {
     return returnValue;
   }
 }
-
-function solution(no, works) {
-  let result = 0;
-  const heap = new MaxHeap();
-
-  for (let work of works) {
-    heap.push(work);
-  }
-
-  for (let i = 0; i < no; i++) {
-    let work = heap.pop() - 1;
-    if (work < 0) return 0;
-    heap.push(work);
-  }
-  while (heap.heap.length > 1) {
-    let work = heap.pop();
-    if (work === 0) break;
-    result += work ** 2;
-  }
-
-  console.log(result);
-  return result;
-}
-
-solution(13, [4, 3, 3, 6, 8, 4, 3]);

@@ -12,6 +12,8 @@
 //포화이진트리(맨 마지막 레벨까지 모두 채워져있음)
 //편향이진트리(한쪽으로만)
 
+//Math.floor(Math.log2(MyIndex))+1 = Level
+
 const treeArray = [
   undefined,
   //1

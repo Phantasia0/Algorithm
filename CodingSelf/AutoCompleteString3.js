@@ -44,7 +44,7 @@ class Trie {
   }
 }
 
-function solution(words) {
+export function solution2(words) {
   const trie = new Trie();
   for (let word of words) {
     trie.insert(word);
@@ -77,5 +77,5 @@ function solution(words) {
     }
   }
 
-  return finalCount;
+  return console.log(finalCount);
 }

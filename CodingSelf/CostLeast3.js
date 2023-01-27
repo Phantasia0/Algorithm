@@ -69,7 +69,7 @@ function solution(no, works) {
     if (work > 0) {
       work -= 1;
     } else {
-      break;
+      return 0;
     }
     no -= 1;
     heap.push(work);

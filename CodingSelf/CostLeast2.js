@@ -122,3 +122,6 @@ function solution(no, works) {
 }
 
 solution(13, [4, 3, 3, 6, 8, 4, 3]);
+
+//This one Failed....
+//보통은 맞으나, 반례 찾아야함.

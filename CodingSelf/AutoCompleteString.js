@@ -8,6 +8,7 @@ class Node {
 class Trie {
   constructor() {
     this.root = new Node();
+    this.count = 0;
   }
 
   insert(string) {
@@ -34,8 +35,10 @@ class Trie {
 
   belongsTo(string, parent) {
     let currentNode = this.root;
+    this.count = 0;
     for (const char of string) {
       currentNode = currentNode.children.get(char);
+      this.count++;
       if (currentNode.value === parent) {
         return true;
       }
@@ -44,10 +47,42 @@ class Trie {
   }
 }
 
+class Queue {
+  constructor() {
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+
+  enqueue(data) {
+    this.queue[this.rear++] = data;
+  }
+
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front += 1;
+    return value;
+  }
+
+  peek() {
+    return this.queue[this.front];
+  }
+
+  size() {
+    return this.rear - this.front;
+  }
+}
+
 function solution(words) {
   const trie = new Trie();
   for (let word of words) {
     trie.insert(word);
+  }
+
+  const queue = new Queue();
+  for (let word of words) {
+    queue.enqueue(word);
   }
 
   let finalCount = 0;
@@ -61,21 +96,33 @@ function solution(words) {
       counter++;
       let count = 0;
       if (word === string) {
+        //console.log("Set Complete:" + counter);
         finalCount += counter;
         continue;
       }
-      for (let data of words) {
-        if (trie.belongsTo(data, string)) {
+      while (true) {
+        const literal = queue.dequeue();
+        if (trie.belongsTo(literal, string)) {
+          //console.log(literal + "," + string);
           count++;
+          //console.log(count + "Called");
         }
+        if (queue.size() === 0) break;
+      }
+      for (let word of words) {
+        queue.enqueue(word);
       }
 
       if (count === 1) {
         finalCount += counter;
+        //console.log("Set Complete:" + counter);
         break;
       }
     }
   }
 
+  //console.log(finalCount);
   return finalCount;
 }
+
+solution(["word", "war", "warrior", "world"]);

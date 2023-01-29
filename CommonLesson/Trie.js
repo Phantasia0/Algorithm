@@ -31,10 +31,3 @@ class Trie {
     return true;
   }
 }
-
-const trie = new Trie();
-trie.insert("cat");
-trie.insert("can");
-console.log(trie.has("cat"));
-console.log(trie.has("can"));
-console.log(trie.has("cap"));

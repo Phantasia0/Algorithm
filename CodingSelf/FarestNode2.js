@@ -1,5 +1,3 @@
-//핵심 키워드 : 노드, 간선, 최단거리
-
 function solution(n, edge) {
   const graph = Array.from(Array(n + 1), () => []);
 
@@ -11,18 +9,21 @@ function solution(n, edge) {
   const distance = Array(n + 1).fill(0);
   distance[1] = 1;
 
-  //BFS
-  const queue = [1];
-  while (queue.length > 0) {
-    const src = queue.shift();
+  const stack = [];
+  stack.push(1);
+  while (stack.length > 0) {
+    const src = stack.pop();
+    console.log("Node:" + src);
     for (const dest of graph[src]) {
       if (distance[dest] === 0) {
-        queue.push(dest);
+        stack.push(dest);
         distance[dest] = distance[src] + 1;
       }
     }
   }
+
   const max = Math.max(...distance);
+  console.log(distance);
   return distance.filter((item) => item === max).length;
 }
 

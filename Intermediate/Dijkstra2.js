@@ -73,20 +73,20 @@ function dijkstra(road, N) {
   while (!heap.isEmpty()) {
     const { node: current, cost: currentCost } = heap.pop();
     for (const [src, dest, cost] of road) {
-      const nextCost = cost + currentCost;
-      if (current === src) {
-        if (dist[dest] > nextCost) {
-          dist[dest] = nextCost;
-          heap.push({ node: dest, cost: nextCost });
-        }
-      } else if (current === dest) {
-        if (dist[src] > nextCost) {
-          dist[src] = nextCost;
-          heap.push({ node: src, cost: nextCost });
-        }
+      const nextCost = currentCost + cost;
+      if (src === current && dist[dest] > nextCost) {
+        dist[dest] = nextCost;
+        heap.push({ node: dest, cost: nextCost });
+      } else if (dest === current && dist[src] > nextCost) {
+        dist[src] = nextCost;
+        heap.push({ node: src, cost: nextCost });
       }
     }
   }
 
   return dist;
+}
+
+function solution(N, road, K) {
+  return dijkstra(road, N).filter((dist) => dist <= K).length;
 }

@@ -23,7 +23,7 @@ function combinations(arr, n) {
   arr.forEach((fixed, idx, arr) => {
     const rest = arr.slice(idx + 1);
 
-    const combins = combinations((rest, n - 1));
+    const combins = combinations(rest, n - 1);
     const combine = combins.map((v) => [fixed, ...v]);
     result.push(...combine);
   });

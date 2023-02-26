@@ -17,7 +17,7 @@ class MinHeap {
     let parentIndex = Math.floor(currentIndex / 2);
 
     //
-    while (parentIndex !== 0 && this.heap[parentIndex] > value) {
+    while (parentIndex !== 0 && this.heap[parentIndex].key > value.key) {
       this._swap(parentIndex, currentIndex);
 
       currentIndex = parentIndex;
@@ -38,16 +38,16 @@ class MinHeap {
 
     while (
       (this.heap[leftIndex] &&
-        this.heap[currentIndex] > this.heap[leftIndex]) ||
-      (this.heap[rightIndex] && this.heap[currentIndex] > this.heap[rightIndex])
+        this.heap[currentIndex].key > this.heap[leftIndex].key) ||
+      (this.heap[rightIndex] && this.heap[currentIndex].key > this.heap[rightIndex].key)
     ) {
       if (this.heap[rightIndex] === undefined) {
         this._swap(leftIndex, currentIndex);
         currentIndex = leftIndex;
-      } else if (this.heap[rightIndex] < this.heap[leftIndex]) {
+      } else if (this.heap[rightIndex].key < this.heap[leftIndex].key) {
         this._swap(rightIndex, currentIndex);
         currentIndex = rightIndex;
-      } else if (this.heap[rightIndex] >= this.heap[leftIndex]) {
+      } else if (this.heap[rightIndex].key >= this.heap[leftIndex].key) {
         this._swap(leftIndex, currentIndex);
         currentIndex = leftIndex;
       }
@@ -55,5 +55,7 @@ class MinHeap {
       leftIndex = currentIndex * 2;
       rightIndex = currentIndex * 2 + 1;
     }
+
+    return returnValue;
   }
 }

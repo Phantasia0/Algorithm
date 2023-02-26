@@ -1,6 +1,6 @@
 class MaxHeap {
   constructor() {
-    this.heap = [null]; //0번 인덱스는 편의를 위해서 비워둔다
+    this.heap = [null];
   }
 
   push(value) {
